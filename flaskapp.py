@@ -67,14 +67,16 @@ def upload():
             t2 = datetime.datetime.now()
     return "<h1>Upload Successful!</h1>" + "<br><br><i>Time taken for this operation : " + str(t2-t1) + "</i>"
 
-#Running Hadoop on Amazon EC2 instance upon sample file titanic.csv using mapper.py and reducer.py
+#Running Hadoop on Amazon EC2 instance containing sample file titanic.csv using mapper.py and reducer.py
 @application.route('/hadoop',methods=['GET','POST'])
 def hadoopa():
+	num_mapper = request.form['num_mapper']
+    num_reducer = request.form['num_reducer']
     p = subprocess.Popen(["hdfs", "dfs", "-copyFromLocal", "~/titanic1.csv", "/quiz1"], stdout=subprocess.PIPE)
     (output, err) = p.communicate()
     print "Uploading file to HDFS", output
     t1 = datetime.datetime.now()
-    p = subprocess.Popen(["hadoop", "jar", "/usr/local/hadoop/share/hadoop/tools/lib/hadoop-streaming-2.7.1.jar", "-file", "/home/ubuntu/mapper.py", "-mapper", "/home/ubuntu/mapper.py", "-file", "/home/ubuntu/reducer.py", "-reducer", "/home/ubuntu/reducer.py", "-input", "/quiz/*", "-output", "/quiz/output1"], stdout=subprocess.PIPE)
+    p = subprocess.Popen(["hadoop", "jar", "/usr/local/hadoop/share/hadoop/tools/lib/hadoop-streaming-2.7.1.jar", "-D mapred.map.tasks=num_mapper", "-D mapred.reduce.tasks=num_reducer", "-file", "/home/ubuntu/mapper.py", "-mapper", "/home/ubuntu/mapper.py", "-file", "/home/ubuntu/reducer.py", "-reducer", "/home/ubuntu/reducer.py", "-input", "/quiz/*", "-output", "/quiz/output1"], stdout=subprocess.PIPE)
     (output, err) = p.communicate()
     t2 = datetime.datetime.now()
     print "Running the file on hadoop" + output
