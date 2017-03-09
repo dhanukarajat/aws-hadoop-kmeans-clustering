@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<body align="center">
+<h1>AWS Big Data</h1>
+<p>
+<form action="/upload" enctype="multipart/form-data" method = "post">
+  <h2>Upload file to S3 Cloud Storage </h2><br>
+  <input type="file" name="file_upload">
+  <button type="submit" >Upload</button>
+</form>
+<p>
+<form action="/list" enctype="multipart/form-data" method = "post">
+  <h2>List the files on Cloud Storage</h2><br>
+  <button type="submit" >List</button>
+</form>
+<p>
+<form action="/hadoop" enctype="multipart/form-data" method = "post">
+  <h2>Run the uploaded file on Hadoop</h2><br>
+  <button type="submit" >MapperReducer</button>
+</form>
+<p>
+<p>
+<form action="/cluster" enctype="multipart/form-data" method = "post">
+  <h2>Running K-means Clustering on the uploaded file </h2><br>
+  <input type="file" name="file_upload"><br/>
+  Enter Column 1<input type="text" name="col1"><br/>
+  Enter Column 2<input type="text" name="col2"><br/>
+  Enter Number of clusters<input type="text" name="number_of_cluster"><br/>
+  <button type="submit" >Panda</button>
+</form>
+</body>
+</html>
